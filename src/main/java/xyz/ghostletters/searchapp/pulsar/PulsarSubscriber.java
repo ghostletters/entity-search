@@ -5,9 +5,12 @@ import org.apache.pulsar.client.api.MessageListener;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;
 
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class PulsarSubscriber {
 
-    public static Consumer initConsumerWithListener(String topicName, MessageListener messageListener) throws PulsarClientException {
+    public Consumer initConsumerWithListener(String topicName, MessageListener messageListener) throws PulsarClientException {
         return initClient().newConsumer()
                 .topic(topicName)
                 .subscriptionName("my-subscription")
@@ -15,7 +18,7 @@ public class PulsarSubscriber {
                 .subscribe();
     }
 
-    private static PulsarClient initClient() throws PulsarClientException {
+    private PulsarClient initClient() throws PulsarClientException {
         return PulsarClient.builder()
                 .serviceUrl("pulsar://localhost:6650")
                 .build();

@@ -22,6 +22,12 @@ public class BookListener {
     @Inject
     BookIndexClient bookIndexClient;
 
+    @Inject
+    BookListenerService bookListenerService;
+
+    @Inject
+    PulsarSubscriber pulsarSubscriber;
+
     MessageListener messageListener = (consumer, msg) -> {
         try {
             // Do something with the message
@@ -31,6 +37,8 @@ public class BookListener {
             BookEvent bookEvent = objectMapper.readValue(jsonPayload, BookEvent.class);
             System.out.println(bookEvent.getAfter().getName());
 
+            bookListenerService.handleBookChange(bookEvent);
+
             bookIndexClient.index(bookEvent.getAfter());
 
             // Acknowledge the message so that it can be deleted by the message broker
@@ -38,10 +46,11 @@ public class BookListener {
         } catch (Exception e) {
             // Message failed to process, redeliver later
             consumer.negativeAcknowledge(msg);
+            throw new RuntimeException(e);
         }
     };
 
     public void onStart(@Observes StartupEvent event) throws PulsarClientException {
-        PulsarSubscriber.initConsumerWithListener(topicName, messageListener);
+        pulsarSubscriber.initConsumerWithListener(topicName, messageListener);
     }
 }
