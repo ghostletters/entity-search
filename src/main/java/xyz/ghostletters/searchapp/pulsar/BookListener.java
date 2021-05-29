@@ -20,7 +20,7 @@ public class BookListener {
     ObjectMapper objectMapper;
 
     @Inject
-    BookIndexClient bookIndexClient;
+    BookService bookService;
 
     MessageListener messageListener = (consumer, msg) -> {
         try {
@@ -29,9 +29,8 @@ public class BookListener {
             System.out.println("Message received: " + jsonPayload);
 
             BookEvent bookEvent = objectMapper.readValue(jsonPayload, BookEvent.class);
-            System.out.println(bookEvent.getAfter().getName());
 
-            bookIndexClient.index(bookEvent.getAfter());
+            bookService.handleBookChange(bookEvent);
 
             // Acknowledge the message so that it can be deleted by the message broker
             consumer.acknowledge(msg);

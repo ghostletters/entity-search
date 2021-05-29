@@ -12,31 +12,31 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
-    private int pages;
+    private String title;
+    private int pageCount;
 
     public Book() {
     }
 
-    public Book(String name, int pages) {
-        this.name = name;
-        this.pages = pages;
+    public Book(String title, int pageCount) {
+        this.title = title;
+        this.pageCount = pageCount;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getPages() {
-        return pages;
+    public int getPageCount() {
+        return pageCount;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
     }
 
     public Long getId() {

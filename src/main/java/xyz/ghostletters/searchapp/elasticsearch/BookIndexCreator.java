@@ -45,7 +45,11 @@ public class BookIndexCreator {
                       },
                       "mappings": {
                        "properties" : {
-                          "name" : {
+                          "title" : {
+                            "type" : "text",
+                            "analyzer" : "my_text_field_analyzer"
+                          },
+                          "author" : {
                             "type" : "text",
                             "analyzer" : "my_text_field_analyzer"
                           }
