@@ -1,3 +1,5 @@
+# http://pulsar.apache.org/docs/en/io-debezium-source/#example-of-postgresql
+
 tenant: "public"
 namespace: "default"
 name: "debezium-postgres-source"
