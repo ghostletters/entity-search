@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Set;
 
 @Path("/author")
 public class AuthorResource {
@@ -18,7 +19,7 @@ public class AuthorResource {
         Book dark_tower = new Book("Dark Tower", 400);
         Book it = new Book("It", 366);
 
-        Author steven_king = new Author("Steven King", List.of(dark_tower, it));
+        Author steven_king = new Author("Steven King", Set.of(dark_tower, it));
         return steven_king;
     }
 }

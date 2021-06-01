@@ -2,24 +2,21 @@ package xyz.ghostletters.webapp.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class Author extends AbstractEntity {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "author_id")
-    private List<Book> books;
+    private Set<Book> books;
 
     public Author() {
     }
 
-    public Author(String name, List<Book> books) {
+    public Author(String name, Set<Book> books) {
         this.name = name;
         this.books = books;
     }
@@ -32,11 +29,11 @@ public class Author {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 }

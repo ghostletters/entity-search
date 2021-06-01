@@ -1,26 +1,19 @@
 package xyz.ghostletters.webapp.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+public class Book extends AbstractEntity {
 
     private String title;
-    private int pageCount;
+    private int isbn;
 
     public Book() {
     }
 
-    public Book(String title, int pageCount) {
+    public Book(String title, int isbn) {
         this.title = title;
-        this.pageCount = pageCount;
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -31,15 +24,19 @@ public class Book {
         this.title = title;
     }
 
-    public int getPageCount() {
-        return pageCount;
+    public int getIsbn() {
+        return isbn;
     }
 
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", isbn=" + isbn +
+                "} " + super.toString();
     }
 }
