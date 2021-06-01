@@ -37,4 +37,5 @@ nb-configuration.xml
 *.rej
 
 # docker
-docker/pulsar
+docker/pulsar/data
+docker/pulsar/io_connectors

@@ -26,6 +26,7 @@ services:
       - "./pulsar/data/:/pulsar/data"
       - "./pulsar/io_connectors/pulsar-io-debezium-postgres-${PULSAR_VERSION}.nar:/pulsar/connectors/pulsar-io-debezium-postgres-${PULSAR_VERSION}.nar"
       - "./pulsar/debezium-postgres-source-config.yaml:/pulsar/conf/debezium-postgres-source-config.yaml"
+      - "./pulsar/start-debezium-connector.sh:/pulsar/start-debezium-connector.sh"
 
   # https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
   elasticsearch:
