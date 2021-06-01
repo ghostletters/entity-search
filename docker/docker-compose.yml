@@ -1,8 +1,9 @@
 version: "3.7"
 
 services:
+  # https://hub.docker.com/_/postgres
   postgres:
-    image: postgres:11
+    image: postgres:13.3
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: changeme
@@ -13,21 +14,22 @@ services:
       - "./postgres.conf:/etc/postgresql/postgresql.conf"
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
 
-
+  # https://pulsar.apache.org/docs/en/standalone/
   pulsar:
-    image: apachepulsar/pulsar:2.7.1
+    image: apachepulsar/pulsar:${PULSAR_VERSION}
     hostname: pulsar
     command: bin/pulsar standalone
     ports:
       - "8080:8080"
       - "6650:6650"
     volumes:
-      - "./data/:/pulsar/data"
-      - "./io_connectors/pulsar-io-debezium-postgres-2.7.1.nar:/pulsar/connectors/pulsar-io-debezium-postgres-2.7.1.nar"
-      - "./debezium-postgres-source-config.yaml:/pulsar/conf/debezium-postgres-source-config.yaml"
+      - "./pulsar/data/:/pulsar/data"
+      - "./pulsar/io_connectors/pulsar-io-debezium-postgres-${PULSAR_VERSION}.nar:/pulsar/connectors/pulsar-io-debezium-postgres-${PULSAR_VERSION}.nar"
+      - "./pulsar/debezium-postgres-source-config.yaml:/pulsar/conf/debezium-postgres-source-config.yaml"
 
+  # https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     environment:
       - node.name=es01
       - cluster.name=es-entity-search
@@ -38,8 +40,9 @@ services:
       - "9200:9200"
       - "9300:9300"
 
+  # https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.12.0
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
     ports:
       - "5601:5601"
     depends_on:

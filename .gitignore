@@ -36,9 +36,5 @@ nb-configuration.xml
 *.orig
 *.rej
 
-# Local environment
-.env
-
 # docker
-docker/data
-docker/io_connectors
+docker/pulsar
